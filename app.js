@@ -12,7 +12,8 @@ var coolRouter = require('./routes/cool');
 var catalogRouter = require('./routes/catalog');
 
 var app = express();
-var mongoDB = 'mongodb+srv://local_library_user:local_library@cluster0-nhau9.azure.mongodb.net/local_library?retryWrites=true&w=majority';
+var dev_db_url = 'mongodb+srv://local_library_user:local_library@cluster0-nhau9.azure.mongodb.net/local_library?retryWrites=true&w=majority';
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
