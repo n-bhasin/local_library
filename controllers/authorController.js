@@ -2,7 +2,13 @@ var Author = require('../models/author');
 
 //display list of all authors
 exports.author_list = function(req,res){
-    res.send();
+    Author.find()
+        .populate('author')
+        .sort([['family_name', 'ascending']])
+        .exec(function(err, list_authors){
+            if(err) return next(err);
+            res.render('author_list', {title: 'Author List', author_list: list_authors})
+        })
 }
 //detail page for specific author
 exports.author_detail = function(req,res){
