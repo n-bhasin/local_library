@@ -32,7 +32,14 @@ authorSchema.virtual('name')
 authorSchema
 .virtual('lifespan')
 .get(function(){
-    return (this.date_of_death.getYear() - this.date_of_birth.getYear()).toString();
+    let lifespan = '';
+    if(this.date_of_death && this.date_of_birth){
+        lifespan = (this.date_of_death.getYear() - this.date_of_birth.getYear())
+    }
+    if(!this.date_of_death || !this.date_of_birth){
+        lifespan = 'N.A';
+    }
+    return lifespan.toString();
 });
 
 //Virtualfor authors url
